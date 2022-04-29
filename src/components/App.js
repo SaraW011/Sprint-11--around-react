@@ -7,7 +7,8 @@ import ImagePopup from "./ImagePopup";
 
 import api from "../utils/Api";
 import CurrentUserContext from '../contexts/CurrentUserContext';
-
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from './EditAvatarPopup';
 
 
 function App() {
@@ -37,6 +38,28 @@ function App() {
           console.log(err);
         });
     }, []);
+
+    function handleUpdateUser(input) {
+      api.editUserInfo(input.name, input.about)
+        .then(data => {
+          setCurrentUser(data);
+          closeAllPopups();
+        })
+        .catch((err) => {
+          console.log(err.status, err.statusText);
+        });
+    }
+
+    function handleUpdateAvatar(input) {
+      api.editAvatar(input.avatar)
+        .then(data => {
+          setCurrentUser(data);
+          closeAllPopups();
+        })
+        .catch((err) => {
+          console.log(err.status, err.statusText);
+        });
+    }
 
 //**----------->> MODALS <<-------------------*/
 
@@ -92,37 +115,11 @@ function App() {
           onCardClick={handleCardClick}
         />
 
-        {/* <!-- MODAL POPUP EDIT PROFILE --> */}
-        <PopupWithForm
-          name="edit-profile"
-          onClose={closeAllPopups}
-          isOpen={isEditProfilePopupOpen}
-          title="Edit profile"
-          buttonText="Save"
-        >
-          <input
-            id="input_type_name"
-            type="text"
-            className="form__input form__input_type_name"
-            placeholder="name"
-            name="name"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span id="input_type_name-error" className="form__error"></span>
-          <input
-            id="input_type_job"
-            type="text"
-            className="form__input form__input_type_job"
-            placeholder="profession"
-            name="job"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span id="input_type_job-error" className="form__error"></span>
-        </PopupWithForm>
+<EditProfilePopup 
+    isOpen={isEditProfilePopupOpen} 
+    onClose={closeAllPopups} 
+    onUpdateUser={handleUpdateUser}
+    />
 
         {/* <!-- MODAL POPUP ADD PLACE CARD --> */}
         <PopupWithForm
@@ -161,24 +158,12 @@ function App() {
           // "Are you sure?" (optional)
         }
 
-        {/* <!-- MODAL POPUP EDIT AVATAR --> */}
-        <PopupWithForm
-          name="edit-avatar"
-          onClose={closeAllPopups}
-          isOpen={isEditAvatarPopupOpen}
-          title="Change profile picture"
-          buttonText="Save"
-        >
-          <input
-            id="input_type_avatar-url"
-            type="url"
-            className="form__input form__input_type_link"
-            placeholder="avatar link"
-            name="link"
-            required
-          />
-          <span id="input_type_avatar-url-error" className="form__error"></span>
-        </PopupWithForm>
+<EditAvatarPopup 
+    isOpen={isEditAvatarPopupOpen} 
+    onClose={closeAllPopups}
+    onUpdateAvatar={handleUpdateAvatar}
+
+    />
 
         <ImagePopup
           name="preview-image"

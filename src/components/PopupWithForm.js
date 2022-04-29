@@ -24,7 +24,7 @@ export default function PopupWithForm(props) {
 
           <button
             type="submit"
-            className={`form__button form__button_type-${props.name} form__button_disabled`}
+            className={`form__button form__button_type-${props.name}`}
             // className="form__button form__button_type-edit-profile form__button_disabled"
             // className="form__button form__button_type-add-card form__button_disabled"
             // className="form__button form__button_delete"
