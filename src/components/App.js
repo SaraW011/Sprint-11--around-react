@@ -8,7 +8,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
-import api from "../utils/Api";
+import api from "../utils/api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function App() {
