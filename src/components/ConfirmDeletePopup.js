@@ -1,14 +1,14 @@
 import PopupWithForm from "./PopupWithForm";
 
-export default function ConfirmDeletePopup({ isOpen, onClose, onSubmit }) {
+export default function ConfirmDeletePopup(props) {
   return (
     <PopupWithForm
       name="confirm-delete"
       title="Are you Sure?"
       buttonText="Yes"
-      isOpen={isOpen}
-      onClose={onClose}
-      onSubmit={onSubmit}
+      isOpen={props.isOpen}
+      onClose={props.onClose}
+      onSubmit={props.onSubmit}
     />
   );
 }

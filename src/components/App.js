@@ -12,19 +12,18 @@ import api from "../utils/Api";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function App() {
-  //determine the presence of the CSS visibility class and specifies the image address in the img tag.
-  const [selectedCard, setSelectedCard] = React.useState({});
-
-  // state variables responsible for the visibility of three popups:
+  // state variables responsible for the visibility of popups:
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
   const [isPreviewImageOpen, setIsPreviewImageOpen] = React.useState(false);
-  const [isDeleteImagePopupOpen, setIsDeleteImagePopupOpen] =
-    React.useState(false);
+  // const [isDeleteImagePopupOpen, setIsDeleteImagePopupOpen] =
+  //   React.useState(false);
 
+  //---
+  const [selectedCard, setSelectedCard] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -101,14 +100,19 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then((newCard) => {
-      setCards((state) =>
-        state.filter((currentCard) =>
-          currentCard._id === card._id ? newCard : currentCard
-        )
-      );
-    });
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) =>
+          state.filter((currentCard) => 
+          currentCard._id !== card._id)
+        );
+      })
+      .catch((err) => {
+        console.log(err.status, err.statusText);
+      });
   }
+  
 
   function handleAddPlaceSubmit(cardData) {
     api
@@ -135,16 +139,16 @@ function App() {
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
   }
-  function handleDeletePlaceClick() {
-    setIsDeleteImagePopupOpen(true);
-  }
+  // function handleDeletePlaceClick() {
+  //   setIsDeleteImagePopupOpen(true);
+  // }
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsPreviewImageOpen(false);
-    setIsDeleteImagePopupOpen(false);
+    // setIsDeleteImagePopupOpen(false);
 
     setSelectedCard({});
   }
@@ -176,7 +180,7 @@ function App() {
             onCardClick={handleCardClick}
             cards={cards}
             onCardLike={handleCardLike}
-            onCardDelete={handleDeletePlaceClick}
+            onCardDelete={handleCardDelete}
           />
 
           <EditProfilePopup
@@ -197,11 +201,11 @@ function App() {
             onAddPlaceSubmit={handleAddPlaceSubmit}
           />
 
-          <ConfirmDeletePopup
+          {/* <ConfirmDeletePopup
             isOpen={isDeleteImagePopupOpen}
             onClose={closeAllPopups}
-            onSubmit={handleCardDelete}
-          />
+            onSubmit={handleDeletePlaceClick}
+          /> */}
 
           <ImagePopup
             name="preview-image"
