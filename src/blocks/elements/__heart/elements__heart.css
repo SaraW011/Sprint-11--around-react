@@ -8,7 +8,7 @@
   padding: 0;
   border: none;
   cursor: pointer;
-  transition: 1s ease-out;
+  /* transition: .06s ease-out; */
 }
 
 .elements__heart:hover {

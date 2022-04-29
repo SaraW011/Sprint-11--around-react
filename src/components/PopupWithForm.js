@@ -2,7 +2,7 @@ export default function PopupWithForm(props) {
   return (
     <div
       className={`modal modal_type_${props.name} ${
-        props.isOpen  && "modal_open"
+        props.isOpen && "modal_open"
       }`}
     >
       <div className="modal__container">
@@ -18,6 +18,7 @@ export default function PopupWithForm(props) {
           action="#"
           className={`form form-${props.name}`}
           name={`form-${props.name}`}
+          onSubmit={props.onSubmit}
           noValidate
         >
           {props.children}
@@ -25,13 +26,11 @@ export default function PopupWithForm(props) {
           <button
             type="submit"
             className={`form__button form__button_type-${props.name}`}
-            // className="form__button form__button_type-edit-profile form__button_disabled"
-            // className="form__button form__button_type-add-card form__button_disabled"
-            // className="form__button form__button_delete"
-            // className="form__button form__button_type-change-avatar form__button_disabled"
             aria-label="delete-button"
-
-          >            {props.buttonText}
+            onClick={props.onClose}
+          >
+            {" "}
+            {props.buttonText}
           </button>
         </form>
       </div>
