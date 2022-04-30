@@ -17,9 +17,9 @@ export default function Main({
     <main>
       <section className="profile">
         <div className="profile__avatar-wrapper">
-          <div
+          <img
             className="profile__avatar"
-            style={{ backgroundImage: `url(${currentUser.avatar})` }}
+            src={currentUser.avatar}
           />
 
           <button

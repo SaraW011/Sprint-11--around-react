@@ -15,6 +15,11 @@ export default function AddPlacePopup(props) {
       link: cardLink,
     });
   }
+    //clear the inputs based on isOpen props 
+    React.useEffect(() => {
+      setCardName('');
+      setCardLink('');
+    }, [props.isOpen]);
 
   function handleCardNameUpdate(e) {
     setCardName(e.target.value);

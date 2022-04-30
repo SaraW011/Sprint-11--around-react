@@ -31,9 +31,9 @@ export default function EditProfilePopup(props) {
   // After loading the current user from the API
   // their data will be used in managed components.
   React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+    setName(currentUser.name || "");
+    setDescription(currentUser.about || "");
+  }, [currentUser, props.isOpen]);
 
   return (
     <PopupWithForm
@@ -47,6 +47,7 @@ export default function EditProfilePopup(props) {
       <input
         id="input_type_name"
         type="text"
+        value={profileName}
         onChange={handleUserNameUpdate}
         className="form__input form__input_type_name"
         placeholder="name"
@@ -59,6 +60,7 @@ export default function EditProfilePopup(props) {
       <input
         id="input_type_job"
         type="text"
+        value={profileDescription}
         onChange={handleUserDescriptionUpdate}
         className="form__input form__input_type_job"
         placeholder="profession"
