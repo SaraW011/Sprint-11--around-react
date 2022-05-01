@@ -58,6 +58,7 @@ function App() {
       .editUserInfo(input.name, input.about)
       .then((data) => {
         setCurrentUser(data);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err.status, err.statusText);
@@ -69,6 +70,7 @@ function App() {
       .editAvatar(input.avatar)
       .then((data) => {
         setCurrentUser(data);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err.status, err.statusText);
@@ -113,11 +115,13 @@ function App() {
       });
   }
   
-
   function handleAddPlaceSubmit(cardData) {
     api
       .addPlaceCard(cardData.name, cardData.link)
-      .then((newCard) => setCards([newCard, ...cards]))
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
       .catch((err) => {
         console.log(err.status, err.statusText);
       });

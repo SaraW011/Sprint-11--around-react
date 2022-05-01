@@ -27,7 +27,8 @@ export default function PopupWithForm(props) {
             type="submit"
             className={`form__button form__button_type-${props.name}`}
             aria-label="delete-button"
-            onClick={props.onClose}
+            // onClick={props.onClose} //>> triggers avatarRef useEffect >>
+            //use method closeAllPopups in App instead
           >
             {" "}
             {props.buttonText}
